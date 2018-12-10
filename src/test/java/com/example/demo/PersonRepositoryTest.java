@@ -54,7 +54,7 @@ class PersonRepositoryTest {
         UUID id = personRepository.save(p).getId();
 
         // When
-        Person person = personRepository.findById(id).get();
+        Person person = personRepository.select(id);
 
         // Then
         Assertions.assertEquals(id, person.getId());
@@ -66,10 +66,10 @@ class PersonRepositoryTest {
         // Given
         Person p = new Person();
         p.setName("Donald");
-        personRepository.save(p);
+        UUID id = personRepository.save(p).getId();
 
         // When
-        PersonName personName = personRepository.selectName();
+        PersonName personName = personRepository.selectName(id);
 
         // Then
         Assertions.assertEquals("Donald", personName.getName());
@@ -83,7 +83,7 @@ class PersonRepositoryTest {
         UUID id = personRepository.save(p).getId();
 
         // When
-        PersonId personId = personRepository.selectId();
+        PersonId personId = personRepository.selectId(id);
 
         // Then
         Assertions.assertEquals(id, personId.getId());

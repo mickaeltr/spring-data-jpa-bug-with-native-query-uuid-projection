@@ -47,20 +47,45 @@ class PersonRepositoryTest {
     private PersonRepository personRepository;
 
     @Test
+    void findById() {
+        // Given
+        Person p = new Person();
+        p.setName("Mickey");
+        UUID id = personRepository.save(p).getId();
+
+        // When
+        Person person = personRepository.findById(id).get();
+
+        // Then
+        Assertions.assertEquals(id, person.getId());
+        Assertions.assertEquals("Mickey", person.getName());
+    }
+
+    @Test
     void selectName() {
+        // Given
         Person p = new Person();
         p.setName("Donald");
         personRepository.save(p);
-        PersonName personNames = personRepository.selectName();
-        Assertions.assertEquals("Donald", personNames.getName());
+
+        // When
+        PersonName personName = personRepository.selectName();
+
+        // Then
+        Assertions.assertEquals("Donald", personName.getName());
     }
 
     @Test
     void selectId() {
+        // Given
         Person p = new Person();
-        p.setName("Donald");
+        p.setName("Daisy");
         UUID id = personRepository.save(p).getId();
+
+        // When
         PersonId personId = personRepository.selectId();
+
+        // Then
         Assertions.assertEquals(id, personId.getId());
     }
 }
